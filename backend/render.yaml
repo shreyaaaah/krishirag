@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: krishirag-backend
+    env: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: python backend/app/main.py
+    envVars:
+      - key: NEON_DATABASE_URL
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: GROQ_MODEL
+        value: qwen/qwen3.8-27b

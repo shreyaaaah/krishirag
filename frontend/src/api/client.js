@@ -1,4 +1,5 @@
-const BASE_URL = 'http://localhost:8000/api';
+const API_HOST = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const BASE_URL = `${API_HOST.replace(/\/$/, '')}/api`;
 
 /**
  * Sends a farmer query to the RAG backend endpoint.
