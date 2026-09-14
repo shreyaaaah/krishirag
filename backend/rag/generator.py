@@ -71,11 +71,17 @@ def get_resources():
         _INDEX, _METADATA = load_index_and_metadata(index_path, meta_path)
 
     if _BI_ENCODER is None or _CROSS_ENCODER is None:
+        try:
+            import torch
+            torch.set_num_threads(1)
+            torch.set_grad_enabled(False)
+        except Exception:
+            pass
         from sentence_transformers import SentenceTransformer, CrossEncoder
         if _BI_ENCODER is None:
-            _BI_ENCODER = SentenceTransformer(BI_ENCODER_MODEL)
+            _BI_ENCODER = SentenceTransformer(BI_ENCODER_MODEL, device="cpu")
         if _CROSS_ENCODER is None:
-            _CROSS_ENCODER = CrossEncoder(CROSS_ENCODER_MODEL)
+            _CROSS_ENCODER = CrossEncoder(CROSS_ENCODER_MODEL, device="cpu")
 
     if _GROQ_CLIENT is None:
         api_key = os.environ.get("GROQ_API_KEY")
