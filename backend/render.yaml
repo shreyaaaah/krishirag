@@ -3,7 +3,7 @@ services:
     name: krishirag-backend
     env: python
     buildCommand: pip install -r backend/requirements.txt
-    startCommand: python backend/app/main.py
+    startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: NEON_DATABASE_URL
         sync: false

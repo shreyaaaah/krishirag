@@ -11,7 +11,6 @@ import logging
 from typing import List, Dict, Any
 import numpy as np
 import faiss
-from sentence_transformers import SentenceTransformer, CrossEncoder
 
 # Configure logging
 logging.basicConfig(
@@ -44,7 +43,7 @@ def search_faiss(
     query: str,
     index: faiss.Index,
     metadata: List[Dict[str, Any]],
-    bi_encoder: SentenceTransformer,
+    bi_encoder: Any,
     top_k: int = 5
 ) -> List[Dict[str, Any]]:
     """Perform dense vector retrieval via FAISS vector search."""
@@ -62,7 +61,7 @@ def search_faiss(
 def rerank(
     query: str,
     candidates: List[Dict[str, Any]],
-    cross_encoder: CrossEncoder,
+    cross_encoder: Any,
     top_k: int = 3
 ) -> List[Dict[str, Any]]:
     """
@@ -97,8 +96,8 @@ def retrieve_and_rerank(
     query: str,
     index: faiss.Index,
     metadata: List[Dict[str, Any]],
-    bi_encoder: SentenceTransformer,
-    cross_encoder: CrossEncoder,
+    bi_encoder: Any,
+    cross_encoder: Any,
     initial_k: int = 10,
     final_k: int = 3
 ) -> tuple:

@@ -38,7 +38,6 @@ try:
         BI_ENCODER_MODEL,
         CROSS_ENCODER_MODEL
     )
-    from sentence_transformers import SentenceTransformer, CrossEncoder
 except ImportError:
     from test_retrieval_queries import (
         load_index_and_metadata,
@@ -46,7 +45,6 @@ except ImportError:
         BI_ENCODER_MODEL,
         CROSS_ENCODER_MODEL
     )
-    from sentence_transformers import SentenceTransformer, CrossEncoder
 
 # Configure logging
 logging.basicConfig(
@@ -72,11 +70,12 @@ def get_resources():
         meta_path = os.path.join(PROJECT_ROOT, "chunk_metadata.json")
         _INDEX, _METADATA = load_index_and_metadata(index_path, meta_path)
 
-    if _BI_ENCODER is None:
-        _BI_ENCODER = SentenceTransformer(BI_ENCODER_MODEL)
-
-    if _CROSS_ENCODER is None:
-        _CROSS_ENCODER = CrossEncoder(CROSS_ENCODER_MODEL)
+    if _BI_ENCODER is None or _CROSS_ENCODER is None:
+        from sentence_transformers import SentenceTransformer, CrossEncoder
+        if _BI_ENCODER is None:
+            _BI_ENCODER = SentenceTransformer(BI_ENCODER_MODEL)
+        if _CROSS_ENCODER is None:
+            _CROSS_ENCODER = CrossEncoder(CROSS_ENCODER_MODEL)
 
     if _GROQ_CLIENT is None:
         api_key = os.environ.get("GROQ_API_KEY")
