@@ -134,7 +134,7 @@ def fetch_mandi_records_with_retry(database_url: str, query_sql: str, params: li
         cur = None
         try:
             logging.info(f"[DB Attempt {attempt}/{max_attempts}] Connecting to Neon PostgreSQL...")
-            conn = psycopg2.connect(database_url, connect_timeout=10)
+            conn = psycopg2.connect(database_url, connect_timeout=15)
             cur = conn.cursor(cursor_factory=RealDictCursor)
             cur.execute(query_sql, params)
             rows = cur.fetchall()
