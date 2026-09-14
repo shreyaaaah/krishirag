@@ -71,14 +71,20 @@ def get_resources():
         _INDEX, _METADATA = load_index_and_metadata(index_path, meta_path)
 
     if _BI_ENCODER is None:
-        try:
-            import torch
-            torch.set_num_threads(1)
-            torch.set_grad_enabled(False)
-            from sentence_transformers import SentenceTransformer
-            _BI_ENCODER = SentenceTransformer(BI_ENCODER_MODEL, device="cpu")
-        except Exception as be_err:
-            logging.warning(f"Could not load SentenceTransformer ({be_err}). Falling back to lightweight TF-IDF retriever for low memory environment.")
+        use_tfidf = bool(os.environ.get("RENDER")) or os.environ.get("USE_TFIDF", "").lower() == "true"
+        if not use_tfidf:
+            try:
+                import torch
+                torch.set_num_threads(1)
+                torch.set_grad_enabled(False)
+                from sentence_transformers import SentenceTransformer
+                _BI_ENCODER = SentenceTransformer(BI_ENCODER_MODEL, device="cpu")
+            except Exception as be_err:
+                logging.warning(f"Could not load SentenceTransformer ({be_err}). Falling back to TF-IDF retriever.")
+                use_tfidf = True
+
+        if use_tfidf:
+            logging.info("Using lightweight TF-IDF retriever for memory-constrained environment.")
             from sklearn.feature_extraction.text import TfidfVectorizer
             corpus = [m["text"] for m in _METADATA]
             tfidf = TfidfVectorizer(stop_words="english")
@@ -86,12 +92,15 @@ def get_resources():
             _BI_ENCODER = tfidf
 
     if _CROSS_ENCODER is None:
-        try:
-            from sentence_transformers import CrossEncoder
-            _CROSS_ENCODER = CrossEncoder(CROSS_ENCODER_MODEL, device="cpu")
-        except Exception as ce_err:
-            logging.warning(f"Could not load CrossEncoder model ({ce_err}). Falling back to FAISS retrieval.")
+        if bool(os.environ.get("RENDER")) or os.environ.get("USE_TFIDF", "").lower() == "true":
             _CROSS_ENCODER = False
+        else:
+            try:
+                from sentence_transformers import CrossEncoder
+                _CROSS_ENCODER = CrossEncoder(CROSS_ENCODER_MODEL, device="cpu")
+            except Exception as ce_err:
+                logging.warning(f"Could not load CrossEncoder model ({ce_err}). Falling back to FAISS retrieval.")
+                _CROSS_ENCODER = False
 
     if _GROQ_CLIENT is None:
         api_key = os.environ.get("GROQ_API_KEY")
