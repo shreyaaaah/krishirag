@@ -122,6 +122,51 @@ def query_advisory_stream(req: QueryRequest):
     )
 
 
+def fetch_mandi_records_with_retry(database_url: str, query_sql: str, params: list, max_attempts: int = 2) -> list:
+    """
+    Executes a mandi prices SQL query using a fresh psycopg2 connection.
+    Includes a retry mechanism (max 2 attempts) catching OperationalError and InterfaceError
+    to handle Neon DB cold-start / SSL SYSCALL EOF errors smoothly.
+    """
+    last_exception = None
+    for attempt in range(1, max_attempts + 1):
+        conn = None
+        cur = None
+        try:
+            logging.info(f"[DB Attempt {attempt}/{max_attempts}] Connecting to Neon PostgreSQL...")
+            conn = psycopg2.connect(database_url, connect_timeout=10)
+            cur = conn.cursor(cursor_factory=RealDictCursor)
+            cur.execute(query_sql, params)
+            rows = cur.fetchall()
+            return rows
+        except (psycopg2.OperationalError, psycopg2.InterfaceError) as db_err:
+            last_exception = db_err
+            logging.warning(
+                f"[DB Attempt {attempt}/{max_attempts}] Database connection error ({type(db_err).__name__}): {db_err}. "
+                f"{'Retrying in 1 second...' if attempt < max_attempts else 'Max retry attempts reached.'}"
+            )
+            if attempt < max_attempts:
+                time.sleep(1.0)
+        except Exception as e:
+            last_exception = e
+            logging.error(f"Unexpected database error: {e}")
+            raise
+        finally:
+            if cur:
+                try:
+                    cur.close()
+                except Exception:
+                    pass
+            if conn:
+                try:
+                    conn.close()
+                except Exception:
+                    pass
+
+    if last_exception:
+        raise last_exception
+
+
 @app.get("/api/mandi-prices", response_model=MandiPriceResponse, summary="Live Mandi Price Lookup")
 def get_mandi_prices(
     state: Optional[str] = None,
@@ -130,47 +175,40 @@ def get_mandi_prices(
 ):
     """
     Queries the PostgreSQL mandi_prices table directly via psycopg2 using NEON_DATABASE_URL.
+    Uses fresh connections per request with automatic retry logic for Neon cold-starts.
     """
     database_url = os.environ.get("NEON_DATABASE_URL")
     if not database_url:
         raise HTTPException(status_code=500, detail="NEON_DATABASE_URL environment variable is missing.")
 
+    query_sql = """
+        SELECT 
+            id, state, district, market, commodity, variety, grade,
+            arrival_date::text, min_price::float, max_price::float, modal_price::float,
+            fetched_at::text
+        FROM mandi_prices
+        WHERE 1=1
+    """
+    params = []
+
+    if state:
+        query_sql += " AND LOWER(state) = LOWER(%s)"
+        params.append(state.strip())
+    if district:
+        query_sql += " AND LOWER(district) = LOWER(%s)"
+        params.append(district.strip())
+    if commodity:
+        query_sql += " AND LOWER(commodity) LIKE LOWER(%s)"
+        params.append(f"%{commodity.strip()}%")
+
+    query_sql += " ORDER BY arrival_date DESC, state ASC, commodity ASC LIMIT 100;"
+
     try:
-        conn = psycopg2.connect(database_url)
-        cur = conn.cursor(cursor_factory=RealDictCursor)
-
-        query_sql = """
-            SELECT 
-                id, state, district, market, commodity, variety, grade,
-                arrival_date::text, min_price::float, max_price::float, modal_price::float,
-                fetched_at::text
-            FROM mandi_prices
-            WHERE 1=1
-        """
-        params = []
-
-        if state:
-            query_sql += " AND LOWER(state) = LOWER(%s)"
-            params.append(state.strip())
-        if district:
-            query_sql += " AND LOWER(district) = LOWER(%s)"
-            params.append(district.strip())
-        if commodity:
-            query_sql += " AND LOWER(commodity) LIKE LOWER(%s)"
-            params.append(f"%{commodity.strip()}%")
-
-        query_sql += " ORDER BY arrival_date DESC, state ASC, commodity ASC LIMIT 100;"
-
-        cur.execute(query_sql, params)
-        rows = cur.fetchall()
-        cur.close()
-        conn.close()
-
+        rows = fetch_mandi_records_with_retry(database_url, query_sql, params, max_attempts=2)
         records = [MandiPriceRecord(**row) for row in rows]
         return MandiPriceResponse(total=len(records), data=records)
-
     except Exception as e:
-        logging.error(f"Database query error: {e}")
+        logging.error(f"Database lookup failed after retries: {e}")
         raise HTTPException(status_code=500, detail=f"Database Lookup Error: {str(e)}")
 
 
