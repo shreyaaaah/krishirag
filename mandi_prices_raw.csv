@@ -1,0 +1,80 @@
+state,district,market,commodity,variety,grade,arrival_date,min_price,max_price,modal_price
+Punjab,Jalandhar,Noor Mehal APMC,Ridgeguard(Tori),Other,Local,14/09/2026,1700,1700,1700.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Bitter gourd,Bitter Gourd,FAQ,14/09/2026,2500,2500,2500.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Onion,Onion,FAQ,14/09/2026,3700,3700,3700.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Field Pea,Field Pea,FAQ,14/09/2026,6000,6000,6000.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Bhindi(Ladies Finger),Bhindi,Grade A,14/09/2026,2000,3000,2500.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Cabbage,Other,Grade A,14/09/2026,1500,2200,2000.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Pumpkin,Other,Grade A,14/09/2026,1000,1500,1200.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Tomato,Other,Grade A,14/09/2026,2000,2700,2500.0
+Punjab,Mohali,Lalru APMC,Ridgeguard(Tori),Other,Local,14/09/2026,2800,2800,2800.0
+Punjab,Mohali,Lalru APMC,Capsicum,Other,Local,14/09/2026,4500,4500,4500.0
+Punjab,Gurdaspur,Batala APMC,Cucumbar(Kheera),Other,Grade C,14/09/2026,2200,2600,2400.0
+Punjab,Gurdaspur,Batala APMC,Garlic,Other,Grade Range-3,14/09/2026,10000,11500,11000.0
+Punjab,Gurdaspur,Batala APMC,Carrot,Other,Grade C,14/09/2026,2500,3200,2800.0
+Punjab,Gurdaspur,Batala APMC,Cauliflower,Other,Grade C,14/09/2026,3500,4000,3800.0
+Punjab,Hoshiarpur,GarhShankar (Kotfatuhi) APMC,Cucumbar(Kheera),Other,FAQ,14/09/2026,2800,2800,2800.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Pumpkin,Pumpkin,FAQ,14/09/2026,1800,1800,1800.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Apple,Other,Grade A,14/09/2026,6000,10000,9000.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Guava,Other,Grade A,14/09/2026,2500,3500,3000.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Water Melon,Other,Grade A,14/09/2026,800,1500,900.0
+Punjab,Mohali,Lalru APMC,Pumpkin,Other,Local,14/09/2026,1500,1500,1500.0
+Punjab,Mohali,Lalru APMC,Cauliflower,Other,Local,14/09/2026,3800,3800,3800.0
+Punjab,Amritsar,Rayya APMC,Bitter gourd,Bitter Gourd,FAQ,14/09/2026,1352,1352,1352.0
+Punjab,Amritsar,Rayya APMC,Tomato,Other,FAQ,14/09/2026,715,715,715.0
+Punjab,Hoshiarpur,GarhShankar (Kotfatuhi) APMC,Green Chilli,Other,FAQ,14/09/2026,2800,2800,2800.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Apple,Apple,Medium,14/09/2026,5500,5500,5500.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Papaya,Papaya,Medium,14/09/2026,3500,3500,3500.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Pear(Marasebu),Other,Medium,14/09/2026,7000,7000,7000.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Cabbage,Cabbage,FAQ,14/09/2026,1700,1700,1700.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Pomegranate,Other,Medium,14/09/2026,7000,7000,7000.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Tomato,Tomato,FAQ,14/09/2026,2500,2500,2500.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Banana,Other,Grade A,14/09/2026,2000,3000,2500.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Mousambi(Sweet Lime),Mousambi,Grade A,14/09/2026,2500,3500,3000.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Green Chilli,Green Chilly,Grade A,14/09/2026,2000,3500,2500.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Lemon,Lemon,Grade A,14/09/2026,5000,8000,6000.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Ridgeguard(Tori),Ridgeguard(Tori),Grade A,14/09/2026,1500,2500,2000.0
+Punjab,Mohali,Lalru APMC,Tomato,Deshi,Local,14/09/2026,2450,2500,2475.0
+Punjab,Mohali,Lalru APMC,Cucumbar(Kheera),Other,Local,14/09/2026,2340,2340,2340.0
+Punjab,Amritsar,Rayya APMC,Green Chilli,Green Chilly,FAQ,14/09/2026,1065,1065,1065.0
+Punjab,Amritsar,Rayya APMC,Raddish,Other,FAQ,14/09/2026,2075,2080,2078.26
+Punjab,Hoshiarpur,GarhShankar (Kotfatuhi) APMC,Potato,Other,FAQ,14/09/2026,800,800,800.0
+Punjab,Hoshiarpur,GarhShankar (Kotfatuhi) APMC,Banana,Other,Medium,14/09/2026,3500,3500,3500.0
+Punjab,Hoshiarpur,GarhShankar (Kotfatuhi) APMC,Onion,Other,FAQ,14/09/2026,3900,3900,3900.0
+Punjab,Hoshiarpur,GarhShankar (Kotfatuhi) APMC,Tomato,Other,FAQ,14/09/2026,2400,2400,2400.0
+Punjab,Jalandhar,Noor Mehal APMC,Raddish,Other,Local,14/09/2026,1200,1200,1200.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Ginger(Dry),Vegitable-fresh,FAQ,14/09/2026,5000,5000,5000.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Bhindi(Ladies Finger),Bhindi,FAQ,14/09/2026,2200,2200,2200.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Green Chilli,Green Chilly,FAQ,14/09/2026,2800,2800,2800.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Cucumbar(Kheera),Cucumbar,FAQ,14/09/2026,2200,2200,2200.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Potato,Other,FAQ,14/09/2026,700,700,700.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Papaya,Papaya,Grade A,14/09/2026,3000,4000,3500.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Onion,Other,Grade A,14/09/2026,3000,4500,3500.0
+Punjab,Mohali,Lalru APMC,Onion,Other,Local,14/09/2026,4350,4350,4350.0
+Punjab,Mohali,Lalru APMC,Green Chilli,Other,Local,14/09/2026,1800,1800,1800.0
+Punjab,Amritsar,Rayya APMC,Brinjal,Brinjal,FAQ,14/09/2026,500,500,500.0
+Punjab,Amritsar,Rayya APMC,Onion,Other,FAQ,14/09/2026,1410,1410,1410.0
+Punjab,Amritsar,Rayya APMC,Tinda,Other,FAQ,14/09/2026,1785,1785,1785.0
+Punjab,Gurdaspur,Batala APMC,Bhindi(Ladies Finger),Other,Grade C,14/09/2026,4000,4300,4200.0
+Punjab,Gurdaspur,Batala APMC,Pumpkin,Other,Grade C,14/09/2026,2000,2500,2200.0
+Punjab,Hoshiarpur,GarhShankar (Kotfatuhi) APMC,Cauliflower,Other,FAQ,14/09/2026,3500,3500,3500.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Guava,Other,Medium,14/09/2026,2800,2800,2800.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Banana,Other,Medium,14/09/2026,3500,3500,3500.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Capsicum,Capsicum,FAQ,14/09/2026,3000,3000,3000.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Lemon,Other,FAQ,14/09/2026,6000,6000,6000.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Cauliflower,Cauliflower,FAQ,14/09/2026,3200,3200,3200.0
+Punjab,Hoshiarpur,Garh Shankar APMC,Carrot,Carrot,FAQ,14/09/2026,2500,2500,2500.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Brinjal,Brinjal,Grade A,14/09/2026,900,1200,1000.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Carrot,Other,Grade A,14/09/2026,1500,2500,2000.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Cauliflower,Cauliflower,Grade A,14/09/2026,2500,3500,3000.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Cucumbar(Kheera),Cucumbar,Grade A,14/09/2026,2500,3500,3000.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Potato,Other,Grade A,14/09/2026,500,700,600.0
+Punjab,Bhatinda,Rampuraphul(Nabha Mandi) APMC,Raddish,Other,Grade A,14/09/2026,1500,2500,2000.0
+Punjab,Mohali,Lalru APMC,Brinjal,Other,Local,14/09/2026,2800,2800,2800.0
+Punjab,Mohali,Lalru APMC,Bitter gourd,Other,Local,14/09/2026,3000,3000,3000.0
+Punjab,Mohali,Lalru APMC,Bottle gourd,Other,Local,14/09/2026,900,900,900.0
+Punjab,Mohali,Lalru APMC,Potato,Other,Local,14/09/2026,900,900,900.0
+Punjab,Amritsar,Rayya APMC,Bhindi(Ladies Finger),Bhindi,FAQ,14/09/2026,685,685,685.0
+Punjab,Amritsar,Rayya APMC,Cucumbar(Kheera),Cucumbar,FAQ,14/09/2026,890,890,890.0
+Punjab,Amritsar,Rayya APMC,Potato,Potato,FAQ,14/09/2026,745,745,745.0
+Punjab,Amritsar,Rayya APMC,Cauliflower,Local,FAQ,14/09/2026,3175,3175,3175.0
