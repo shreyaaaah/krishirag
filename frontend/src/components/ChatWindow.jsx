@@ -224,21 +224,42 @@ export default function ChatWindow() {
             startTypewriter(botMsgId);
           }
         },
-        (error) => {
-          stopTypewriter();
-          setMessages((prevMessages) =>
-            prevMessages.map((msg) =>
-              msg.id === botMsgId
-                ? {
-                    ...msg,
-                    isError: true,
-                    isStreaming: false,
-                    text: `Unable to get advisory response: ${error.message || 'Server error. Please ensure backend is running.'}`
-                  }
-                : msg
-            )
-          );
-          setIsLoading(false);
+        async (error) => {
+          console.warn('Streaming query failed, falling back to direct API endpoint...', error);
+          try {
+            const fallbackResult = await sendQuery(textToSend.trim());
+            stopTypewriter();
+            setMessages((prevMessages) =>
+              prevMessages.map((msg) =>
+                msg.id === botMsgId
+                  ? {
+                      ...msg,
+                      text: fallbackResult.answer || '',
+                      sources: fallbackResult.sources || [],
+                      responseTimeMs: fallbackResult.response_time_ms,
+                      isStreaming: false,
+                      isError: false
+                    }
+                  : msg
+              )
+            );
+            setIsLoading(false);
+          } catch (fallbackError) {
+            stopTypewriter();
+            setMessages((prevMessages) =>
+              prevMessages.map((msg) =>
+                msg.id === botMsgId
+                  ? {
+                      ...msg,
+                      isError: true,
+                      isStreaming: false,
+                      text: `Unable to get advisory response: ${fallbackError.message || error.message || 'Server error. Please ensure backend is running.'}`
+                    }
+                  : msg
+              )
+            );
+            setIsLoading(false);
+          }
         }
       );
     } catch (error) {

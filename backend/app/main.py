@@ -118,7 +118,12 @@ def query_advisory_stream(req: QueryRequest):
 
     return StreamingResponse(
         generate_answer_stream(req.query.strip()),
-        media_type="text/event-stream"
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+        }
     )
 
 
