@@ -65,10 +65,21 @@ def get_resources():
     """Lazy-load FAISS index, metadata, bi-encoder, cross-encoder, and Groq client."""
     global _INDEX, _METADATA, _BI_ENCODER, _CROSS_ENCODER, _GROQ_CLIENT
 
-    if _INDEX is None or _METADATA is None:
-        index_path = os.path.join(PROJECT_ROOT, "faiss_index.bin")
+    use_tfidf = bool(os.environ.get("RENDER")) or os.environ.get("USE_TFIDF", "").lower() == "true"
+
+    if _METADATA is None:
+        import json
         meta_path = os.path.join(PROJECT_ROOT, "chunk_metadata.json")
-        _INDEX, _METADATA = load_index_and_metadata(index_path, meta_path)
+        with open(meta_path, "r", encoding="utf-8") as f:
+            _METADATA = json.load(f)
+
+    if _INDEX is None:
+        if use_tfidf:
+            _INDEX = True
+        else:
+            index_path = os.path.join(PROJECT_ROOT, "faiss_index.bin")
+            meta_path = os.path.join(PROJECT_ROOT, "chunk_metadata.json")
+            _INDEX, _ = load_index_and_metadata(index_path, meta_path)
 
     if _BI_ENCODER is None:
         use_tfidf = bool(os.environ.get("RENDER")) or os.environ.get("USE_TFIDF", "").lower() == "true"

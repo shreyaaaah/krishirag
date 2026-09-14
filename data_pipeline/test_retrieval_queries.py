@@ -10,7 +10,6 @@ import json
 import logging
 from typing import List, Dict, Any
 import numpy as np
-import faiss
 
 # Configure logging
 logging.basicConfig(
@@ -33,6 +32,7 @@ def load_index_and_metadata(
     if not os.path.exists(index_file) or not os.path.exists(metadata_file):
         raise FileNotFoundError(f"FAISS index ('{index_file}') or metadata ('{metadata_file}') missing. Run embed_and_index.py first.")
 
+    import faiss
     index = faiss.read_index(index_file)
     with open(metadata_file, "r", encoding="utf-8") as f:
         metadata = json.load(f)
