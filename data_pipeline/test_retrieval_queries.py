@@ -78,6 +78,8 @@ def rerank(
     """
     if not candidates:
         return []
+    if not cross_encoder:
+        return candidates[:top_k]
 
     pairs = [[query, candidate["text"]] for candidate in candidates]
     cross_scores = cross_encoder.predict(pairs)

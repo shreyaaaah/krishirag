@@ -70,18 +70,23 @@ def get_resources():
         meta_path = os.path.join(PROJECT_ROOT, "chunk_metadata.json")
         _INDEX, _METADATA = load_index_and_metadata(index_path, meta_path)
 
-    if _BI_ENCODER is None or _CROSS_ENCODER is None:
+    if _BI_ENCODER is None:
         try:
             import torch
             torch.set_num_threads(1)
             torch.set_grad_enabled(False)
         except Exception:
             pass
-        from sentence_transformers import SentenceTransformer, CrossEncoder
-        if _BI_ENCODER is None:
-            _BI_ENCODER = SentenceTransformer(BI_ENCODER_MODEL, device="cpu")
-        if _CROSS_ENCODER is None:
+        from sentence_transformers import SentenceTransformer
+        _BI_ENCODER = SentenceTransformer(BI_ENCODER_MODEL, device="cpu")
+
+    if _CROSS_ENCODER is None:
+        try:
+            from sentence_transformers import CrossEncoder
             _CROSS_ENCODER = CrossEncoder(CROSS_ENCODER_MODEL, device="cpu")
+        except Exception as ce_err:
+            logging.warning(f"Could not load CrossEncoder model ({ce_err}). Falling back to FAISS retrieval.")
+            _CROSS_ENCODER = False
 
     if _GROQ_CLIENT is None:
         api_key = os.environ.get("GROQ_API_KEY")
