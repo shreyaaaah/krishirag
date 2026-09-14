@@ -10,6 +10,13 @@
 
 ---
 
+## 🌐 Live Deployments
+
+- **🎨 Frontend Application**: [https://krishirag.vercel.app](https://krishirag.vercel.app)
+- **⚡ Backend REST / SSE API**: [https://krishirag-backend.onrender.com](https://krishirag-backend.onrender.com)
+
+---
+
 ## 🌟 Key Features
 
 - **🌾 Grounded & Cited Crop Advisories**: Provides natural, farmer-friendly answers for sowing times, seed rates, pest management, herbicides, and crop varieties — citing specific PAU advisory files and page numbers.
