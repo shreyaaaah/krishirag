@@ -47,6 +47,20 @@ def search_faiss(
     top_k: int = 5
 ) -> List[Dict[str, Any]]:
     """Perform dense vector retrieval via FAISS vector search."""
+    if hasattr(bi_encoder, "transform"):
+        from sklearn.metrics.pairwise import cosine_similarity
+        query_vec = bi_encoder.transform([query])
+        matrix = getattr(bi_encoder, "matrix", None)
+        if matrix is not None:
+            sims = cosine_similarity(query_vec, matrix)[0]
+            top_indices = np.argsort(sims)[::-1][:top_k]
+            results = []
+            for idx in top_indices:
+                item = metadata[idx].copy()
+                item["faiss_score"] = float(sims[idx])
+                results.append(item)
+            return results
+
     query_vec = bi_encoder.encode([query], normalize_embeddings=True).astype(np.float32)
     scores, indices = index.search(query_vec, top_k)
 

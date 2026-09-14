@@ -75,10 +75,15 @@ def get_resources():
             import torch
             torch.set_num_threads(1)
             torch.set_grad_enabled(False)
-        except Exception:
-            pass
-        from sentence_transformers import SentenceTransformer
-        _BI_ENCODER = SentenceTransformer(BI_ENCODER_MODEL, device="cpu")
+            from sentence_transformers import SentenceTransformer
+            _BI_ENCODER = SentenceTransformer(BI_ENCODER_MODEL, device="cpu")
+        except Exception as be_err:
+            logging.warning(f"Could not load SentenceTransformer ({be_err}). Falling back to lightweight TF-IDF retriever for low memory environment.")
+            from sklearn.feature_extraction.text import TfidfVectorizer
+            corpus = [m["text"] for m in _METADATA]
+            tfidf = TfidfVectorizer(stop_words="english")
+            tfidf.matrix = tfidf.fit_transform(corpus)
+            _BI_ENCODER = tfidf
 
     if _CROSS_ENCODER is None:
         try:
